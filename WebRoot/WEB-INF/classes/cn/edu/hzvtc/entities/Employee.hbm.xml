@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+	<class name="cn.edu.hzvtc.entities.Employee" table="EMPLOYEES">
+		<id name="id" type="java.lang.Integer">
+			<column name="ID" />
+			<generator class="native" />
+		</id>
+		<property name="employeeName" type="java.lang.String">
+			<column name="EMPLOYEE_NAME" />
+		</property>
+		<property name="employeeEmail" type="java.lang.String">
+			<column name="EMPLOYEE_EMAIL" />
+		</property>
+		<property name="employeeBirthday" type="java.util.Date">
+			<column name="EMPLOYEE_BIRTHDAY" />
+		</property>
+		<property name="createTime" type="java.util.Date">
+			<column name="CREATE_TIME" />
+		</property>
+		<!-- 映射单向 n-1 的关联关系 -->
+		<many-to-one name="department" class="cn.edu.hzvtc.entities.Department">
+			<column name="DEPARTMENT_ID" />
+		</many-to-one>
+	</class>
+
+</hibernate-mapping>
