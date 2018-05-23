@@ -10,6 +10,17 @@
 	http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<bean id="employeeDao" class="cn.edu.hzvtc.dao.EmployeeDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="employeeService" class="cn.edu.hzvtc.services.EmployeeService">
+		<property name="employeeDao" ref="employeeDao"></property>
+	</bean>
+	<bean id="employeeAction" class="cn.edu.hzvtc.actions.EmployeeAction"
+		scope="prototype">
+		<property name="employeeService" ref="employeeService"></property>
+	</bean>
 	<!-- 导入资源文件 -->
 	<context:property-placeholder location="classpath:db.properties" />
 	<!-- 配置 C3P0 数据源 -->
@@ -26,10 +37,6 @@
 		<property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"></property>
 	</bean>
 
-	<!-- 配置action -->
-	<bean id="employeeAction" class="cn.edu.hzvtc.actions.EmployeeAction"
-		scope="prototype">
-	</bean>
 
 	<!-- 配置 SessionFactory -->
 	<bean id="sessionFactory"
