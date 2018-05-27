@@ -16,8 +16,8 @@ public class EmployeeDao {
 		return this.sessionFactory.getCurrentSession();
 	}
 	public List<Employee> getAll() {
-		String hql = "From Employee";
+		String hql = "From Employee e LEFT OUTER JOIN FETCH e.department";
 		return getSession().createQuery(hql).list();
 	}
-
+	
 }	

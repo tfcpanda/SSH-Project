@@ -14,14 +14,9 @@ public class EmployeeAction extends ActionSupport implements RequestAware {
 	 */
 	private static final long serialVersionUID = 1L;
 	private EmployeeService employeeService;
-
+	
 	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
-	}
-
-	public String list() {
-		request.put("employees", employeeService.getAll());
-		return "list";
 	}
 
 	private Map<String, Object> request;
@@ -29,6 +24,11 @@ public class EmployeeAction extends ActionSupport implements RequestAware {
 	@Override
 	public void setRequest(Map<String, Object> arg0) {
 		this.request = arg0;
+	}
+	
+	public String list() {
+		request.put("employees", employeeService.getAll());
+		return "list";
 	}
 
 }
