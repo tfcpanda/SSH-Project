@@ -14,6 +14,16 @@ public class EmployeeService {
 	public List<Employee> getAll() {
 		return this.employeeDao.getAll();
 	}
+	//分页
+	public List<Employee> getEmployeeByPage(int page, int pagesize) {
+		return this.employeeDao.getEmployeeByPage(page, pagesize);
+	}
 
-
+	public int getRecordCount() {
+		return this.employeeDao.getRecordCount();
+	}
+	//按ID删除数据
+	public void delete(Integer id){
+		this.employeeDao.delete(id);
+	}
 }

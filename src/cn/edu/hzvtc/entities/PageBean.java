@@ -68,8 +68,16 @@ public class PageBean<T> {
 
 		startPage = pageNo;
 		for (int i = 0; i < 4; i++) {
-			if (startPage - 1 > 0)
+			if (startPage - 1 > 0) {
 				startPage = startPage - 1;
+			} else
+				break;
+		}
+		// 结束页
+		endPage = pageNo;
+		for (int i = 0; i < 4; i++) {
+			if (endPage + 1 <= lastPage)
+				endPage = endPage + 1;
 			else
 				break;
 		}
