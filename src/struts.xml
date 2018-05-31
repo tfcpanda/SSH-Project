@@ -3,10 +3,10 @@
 <struts>
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
-	<package name="default" namespace="/" extends="struts-default">
+	<package name="default" namespace="/" extends="struts-default,json-default">
 		<action name="emp-*" class="employeeAction" method="{1}">
 			<result name="list">/WEB-INF/views/emp-list.jsp</result>
-			<result type="redirect">emp-list</result>
+			<result name="ajax-success" type="json"></result>
 		</action>
 	</package>
 

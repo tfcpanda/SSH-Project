@@ -19,8 +19,19 @@ public class EmployeeAction extends ActionSupport implements SessionAware {
 	 */
 	private static final long serialVersionUID = 1L;
 	private EmployeeService employeeService;
-	private int returnMsg;
 	private Integer id;
+	/*
+	 * 判定数据库中数据是否删除
+	 */
+	private Boolean status;
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
 	/*
 	 * 分页
 	 */
@@ -40,12 +51,6 @@ public class EmployeeAction extends ActionSupport implements SessionAware {
 		this.pageNo = pageNo;
 	}
 
-	public void setReturnMsg(int returnMsg) {
-		this.returnMsg = returnMsg;
-	}
-	public int getReturnMsg() {
-		return returnMsg;
-	}
 
 	private String nextAction;
 
@@ -61,10 +66,15 @@ public class EmployeeAction extends ActionSupport implements SessionAware {
 	}
 
 	public String delete() {
-		employeeService.delete(id);
-		nextAction = "/emp-list?pageNo=" + pageNo;
-		session.put("returnMsg", 1);
-		return SUCCESS;
+		try {
+			employeeService.delete(id);
+			status = true;
+			GetBeanData();
+		} catch (Exception e) {
+			status = false;
+			e.printStackTrace();
+		}
+		return "ajax-success";
 	}
 
 	public void setEmployeeService(EmployeeService employeeService) {
@@ -88,12 +98,19 @@ public class EmployeeAction extends ActionSupport implements SessionAware {
 		List<Employee> datas = employeeService.getEmployeeByPage((pageBean.getPageNo() - 1) * pageBean.getPageSize(),
 				pageBean.getPageSize());
 		pageBean.setData(datas);
-		
-		if(session.containsKey("returnMsg")){
-			returnMsg = (Integer) session.get("returnMsg");
-			session.remove("returnMsg");
-		}
 		return "list";
+	}
+	//得到数据源
+	public void GetBeanData() {
+		pageBean = new PageBean<Employee>();
+		pageBean.setPageNo(pageNo);
+		pageBean.setPageSize(2);
+		int recordCount = employeeService.getRecordCount();
+		pageBean.setRecordCount(recordCount);
+		List<Employee> datas = employeeService.getEmployeeByPage(
+				(pageBean.getPageNo() - 1) * pageBean.getPageSize(),
+				pageBean.getPageSize());
+		pageBean.setData(datas);
 	}
 
 }
