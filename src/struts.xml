@@ -6,7 +6,9 @@
 	<package name="default" namespace="/" extends="struts-default,json-default">
 		<action name="emp-*" class="employeeAction" method="{1}">
 			<result name="list">/WEB-INF/views/emp-list.jsp</result>
+			<result name="success" type="redirect">/emp-list</result>
 			<result name="ajax-success" type="json"></result>
+			<result name="input">/WEB-INF/views/emp-input.jsp</result>
 		</action>
 	</package>
 

@@ -20,6 +20,14 @@
 	<bean id="employeeAction" class="cn.edu.hzvtc.actions.EmployeeAction"
 		scope="prototype">
 		<property name="employeeService" ref="employeeService"></property>
+		<property name="departmentService" ref="departmentService"></property>
+	</bean>
+	<!-- 配置新的Beans -->
+	<bean id="departmentDao" class="cn.edu.hzvtc.dao.DepartmentDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="departmentService" class="cn.edu.hzvtc.services.DepartmentService">
+		<property name="departmentDao" ref="departmentDao"></property>
 	</bean>
 	<!-- 导入资源文件 -->
 	<context:property-placeholder location="classpath:db.properties" />

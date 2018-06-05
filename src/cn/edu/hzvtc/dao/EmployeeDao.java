@@ -7,14 +7,8 @@ import org.hibernate.SessionFactory;
 
 import cn.edu.hzvtc.entities.Employee;
 
-public class EmployeeDao {
-	private SessionFactory sessionFactory;
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	public Session getSession() {
-		return this.sessionFactory.getCurrentSession();
-	}
+public class EmployeeDao extends BaseDao<Employee>{
+	
 	public List<Employee> getAll() {
 		String hql = "From Employee e LEFT OUTER JOIN FETCH e.department";
 		return getSession().createQuery(hql).list();
@@ -29,10 +23,10 @@ public class EmployeeDao {
 		String hql = "SELECT count(e.id) FROM Employee e";
 		return ((Long) getSession().createQuery(hql).uniqueResult()).intValue();
 	}
-	//按ID删除
-	public void delete(Integer id){
-		String hql = "DELETE FROM Employee e WHERE e.id = ?";
-		getSession().createQuery(hql).setInteger(0,id).executeUpdate();
-	}
+//	//按ID删除
+//	public void delete(Integer id){
+//		String hql = "DELETE FROM Employee e WHERE e.id = ?";
+//		getSession().createQuery(hql).setInteger(0,id).executeUpdate();
+//	}
 
 }	

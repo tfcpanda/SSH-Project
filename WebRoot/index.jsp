@@ -13,5 +13,7 @@
 
 <body>
 	<a href="emp-list">查看员工信息</a>
+	<br>
+	<a href="emp-input">录入员工信息</a>
 </body>
 </html>
