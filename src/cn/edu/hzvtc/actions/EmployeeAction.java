@@ -1,5 +1,6 @@
 package cn.edu.hzvtc.actions;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,21 @@ public class EmployeeAction extends ActionSupport implements SessionAware,Reques
 	private Integer id;
 	private DepartmentService departmentService;
 	private Employee employee;
+	private String employeeName;
+	/*
+	 * 判断是否可用
+	 */
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+	public String validateEmployeeName() throws UnsupportedEncodingException {
+		employeeName= new String(employeeName.getBytes("iso-8859-1"),"UTF-8");
+		status = false;
+		if(employeeService.employeeNameIsValid(employeeName)){
+			status = true;
+		}
+		return "ajax-success";
+	}
 	/*
 	 * 录入成功的方法
 	 */
