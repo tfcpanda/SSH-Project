@@ -36,5 +36,11 @@ public class EmployeeDao extends BaseDao<Employee>{
 		Employee employee = (Employee) query.uniqueResult();
 		return employee;
 	}
+	//按照ID查询
+	public Employee get(Integer id) {
+		String hql = "FROM Employee e LEFT OUTER JOIN FETCH e.department WHERE e.id=?";
+		return (Employee) getSession().createQuery(hql).setInteger(0, id)
+				.uniqueResult();
+	}
 
 }	

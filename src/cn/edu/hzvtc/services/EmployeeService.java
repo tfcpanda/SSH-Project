@@ -27,11 +27,16 @@ public class EmployeeService {
 		this.employeeDao.delete(id);
 	}
 	//保存
-	public void save(Employee employee) {
+	public void saveOrUpdate(Employee employee) {
 		this.employeeDao.saveOrUpdate(employee);
 	}
 	//判断姓名是否可用
 	public boolean employeeNameIsValid(String employeeName) {
 		return employeeDao.getEmployeeByEmployeeName(employeeName) == null;
 	}
+	//按照ID查询员工的方法
+	public Employee get(Integer id) {
+		return employeeDao.get(id);
+	}
+
 }

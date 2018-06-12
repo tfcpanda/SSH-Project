@@ -19,13 +19,13 @@
 		<div class="topbar-wrap white">
 			<div class="topbar-inner clearfix">
 				<div class="topbar-logo-wrap clearfix">
-					<h1 class="topbar-logo none"><a href="index.html" class="navbar-brand">后台管理</a></h1>
+					<h1 class="topbar-logo none"><a href="#" class="navbar-brand">后台管理</a></h1>
 					<ul class="navbar-list clearfix">
 						<li>
-							<a class="on" href="index.html">首页</a>
+							<a class="on" href="#">首页</a>
 						</li>
 						<li>
-							<a href="http://www.mycodes.net/" target="_blank">网站首页</a>
+							<a href="http://www.baidu.com/" target="_blank">网站首页</a>
 						</li>
 					</ul>
 				</div>
@@ -55,25 +55,25 @@
 							<a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
 							<ul class="sub-menu">
 								<li>
-									<a href="design.html"><i class="icon-font">&#xe008;</i>作品管理</a>
+									<a href="#"><i class="icon-font">&#xe008;</i>作品管理</a>
 								</li>
 								<li>
-									<a href="design.html"><i class="icon-font">&#xe005;</i>博文管理</a>
+									<a href="#"><i class="icon-font">&#xe005;</i>博文管理</a>
 								</li>
 								<li>
-									<a href="design.html"><i class="icon-font">&#xe006;</i>分类管理</a>
+									<a href="#"><i class="icon-font">&#xe006;</i>分类管理</a>
 								</li>
 								<li>
-									<a href="design.html"><i class="icon-font">&#xe004;</i>留言管理</a>
+									<a href="#"><i class="icon-font">&#xe004;</i>留言管理</a>
 								</li>
 								<li>
-									<a href="design.html"><i class="icon-font">&#xe012;</i>评论管理</a>
+									<a href="#"><i class="icon-font">&#xe012;</i>评论管理</a>
 								</li>
 								<li>
-									<a href="design.html"><i class="icon-font">&#xe052;</i>友情链接</a>
+									<a href="#"><i class="icon-font">&#xe052;</i>友情链接</a>
 								</li>
 								<li>
-									<a href="design.html"><i class="icon-font">&#xe033;</i>广告管理</a>
+									<a href="#"><i class="icon-font">&#xe033;</i>广告管理</a>
 								</li>
 							</ul>
 						</li>
@@ -81,16 +81,16 @@
 							<a href="#"><i class="icon-font">&#xe018;</i>系统管理</a>
 							<ul class="sub-menu">
 								<li>
-									<a href="system.html"><i class="icon-font">&#xe017;</i>系统设置</a>
+									<a href="#"><i class="icon-font">&#xe017;</i>系统设置</a>
 								</li>
 								<li>
-									<a href="system.html"><i class="icon-font">&#xe037;</i>清理缓存</a>
+									<a href="#"><i class="icon-font">&#xe037;</i>清理缓存</a>
 								</li>
 								<li>
-									<a href="system.html"><i class="icon-font">&#xe046;</i>数据备份</a>
+									<a href="#"><i class="icon-font">&#xe046;</i>数据备份</a>
 								</li>
 								<li>
-									<a href="system.html"><i class="icon-font">&#xe045;</i>数据还原</a>
+									<a href="#"><i class="icon-font">&#xe045;</i>数据还原</a>
 								</li>
 							</ul>
 						</li>
@@ -102,7 +102,7 @@
 
 				<div class="crumb-wrap">
 					<div class="crumb-list"><i class="icon-font"></i>
-						<a href="index.html">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">作品管理</span></div>
+						<a href="#">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">作品管理</span></div>
 				</div>
 				<div class="search-wrap">
 					<div class="search-content">
@@ -129,7 +129,7 @@
 					<form name="myform" id="myform" method="post">
 						<div class="result-title">
 							<div class="result-list">
-								<a href="insert.html"><i class="icon-font"></i>新增作品</a>
+								<a href=emp-input><i class="icon-font"></i>新增作品</a>
 								<a id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
 								<a id="updateOrd" href="javascript:void(0)"><i class="icon-font"></i>更新排序</a>
 							</div>
@@ -143,7 +143,7 @@
 									没有任何员工信息
 								</c:when>
 								<c:otherwise>
-									<table class="result-tab" width="100%">
+									<table id="empTable" class="result-tab" width="100%">
 										<!--头部 样式-->
 										<thead>
 											<tr>
@@ -154,14 +154,14 @@
 												<th>生日</th>
 												<th>创建时间</th>
 												<th>部门</th>
-												<th>操作</th>
+												<th colspan="2">操作</th>
 											</tr>
 										</thead>
 										<!--中部 显示-->
 										<tbody id="show">
 											<c:forEach items="${pageBean.data}" var="employee" varStatus="employeeStatus">
 												<tr>
-													<td class="tc"><input name="id[]" value="58" type="checkbox"></td>
+													<td class="tc"><input type="checkbox"></td>
 													<td>${employee.id}</td>
 													<td>${employee.employeeName}</td>
 													<td>${employee.employeeEmail}</td>
@@ -174,13 +174,14 @@
 													<td>${employee.department.departmentName}</td>
 													<td>
 														<a class="delete" href="emp-delete?id=${employee.id}">删除</a>
-														<input type="hidden" value="${employee.employeeName}"></td>
+														<input type="hidden" value="${employee.employeeName}">
 													</td>
+													<td><a href="emp-input?id=${employee.id}">编辑</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
-										<tfoot>
-												<td colspan="8" align="center">
+										<tfoot id="empTable">
+												<td colspan="9" align="center">
 													<a href="emp-list?pageNo=${pageBean.firstPage}">首页</a>
 													<a href="emp-list?pageNo=${pageBean.prePage}">上一页</a>
 													当前第${pageBean.pageNo},共${pageBean.lastPage}页
@@ -213,22 +214,36 @@
 							type: "post",
 							success: function(data) {
 								//若data的返回值为true，则提示删除成功，且把当前行删除
+								
 								if(data.status) {
-									$("#empTable tbody").html("");
+									var $this= $("#empTable tbody");
+									 $this.html("");
 									$.each(data.pageBean.data, function(index, obj) {
-										tr = "<tr>";
+										var tr = "<tr>";
+										tr = tr +  "<td class='tc'>"+"<input type='checkbox'>"+"</td>";
 										tr = tr + "<td>" + obj.id + "</td>";
 										tr = tr + "<td>" + obj.employeeName + "</td>";
 										tr = tr + "<td>" + obj.employeeEmail + "</td>";
 										tr = tr + "<td>" + obj.employeeBirthday.substring(0, obj.employeeBirthday.indexOf("T")) + "</td>";
 										tr = tr + "<td>" + obj.createTime.replace("T", " ") + "</td>";
 										tr = tr + "<td>" + obj.department.departmentName + "</td>";
-										tr = tr + "<td><a href='emp-delete?id=" + obj.id + "' class='delete'>删除</a></td>";
+										tr=tr+"<td><a href='emp-delete?id="+ obj.id+"&pageNo="+data.pageBean.pageNo +"'class='delete'>删除</a><input type='hidden' value='"+obj.employeeName+"'/></td>"
+										tr = tr + "<td><a href='emp-input?id=" + obj.id + "' class='delete'>编辑</a></td>";
 										tr = tr + "</tr>"
 										$("#empTable tbody").append(tr);
+										
+										/* console.log(obj); */
 									});
-									alert("删除成功!");
-									$tr.remove();
+									
+									$("#empTable tfoot").html("");
+									tr="<tr><td colspan='9' align='center'>";
+									tr=tr+"&nbsp;<a href='emp-list?pageNo="+data.pageBean.firstPage+"'>首页</a>&nbsp;";
+									tr=tr+"<a href='emp-list?pageNo="+data.pageBean.prePage+"'>上一页</a>&nbsp;";
+									tr=tr+"<a>当前第"+data.pageBean.pageNo+"页,&nbsp;共"+data.pageBean.lastPage+"页</a>&nbsp;";
+									tr=tr+"<a href='emp-list?pageNo="+data.pageBean.nextPage+"'>下一页</a>&nbsp;";
+									tr=tr+"<a href='emp-list?pageNo="+data.pageBean.lastPage+"'>末页</a>&nbsp;";
+									$("#empTable tfoot").append(tr);
+									alert("删除成功!"); 
 								} else {
 									//若data的返回值为false，提示删除失败
 									alert("删除失败!");

@@ -51,8 +51,18 @@ public class EmployeeAction extends ActionSupport implements SessionAware,Reques
 		this.employee = employee;
 	}
 	public String save() {
-		employee.setCreateTime(new Date());
-		employeeService.save(employee);
+		if (employee.getId() == null) {
+			employee.setCreateTime(new Date());
+			employeeService.saveOrUpdate(employee);
+			session.put("returnMsg", 1);
+		} else {
+			Employee emp = employeeService.get(employee.getId());
+			emp.setEmployeeBirthday(employee.getEmployeeBirthday());
+			emp.setEmployeeEmail(employee.getEmployeeEmail());
+			emp.getDepartment().setId(employee.getDepartment().getId());
+			session.put("returnMsg", 2);
+			employeeService.saveOrUpdate(emp);
+		}
 		return SUCCESS;
 	}
 	/*
@@ -62,6 +72,9 @@ public class EmployeeAction extends ActionSupport implements SessionAware,Reques
 		this.departmentService = departmentService;
 	}
 	public String input() {
+		if (id != null) {
+			request.put("employee", employeeService.get(id));
+		}
 		request.put("departments", departmentService.getAll());
 		return INPUT;
 	}
@@ -158,6 +171,10 @@ public class EmployeeAction extends ActionSupport implements SessionAware,Reques
 				(pageBean.getPageNo() - 1) * pageBean.getPageSize(),
 				pageBean.getPageSize());
 		pageBean.setData(datas);
+		if(session.containsKey("returnMsg")){
+			returnMsg = (Integer) session.get("returnMsg");
+			session.remove("returnMsg");
+		}
 		return "list";
 	}
 
