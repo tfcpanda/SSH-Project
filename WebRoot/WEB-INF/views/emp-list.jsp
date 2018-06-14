@@ -134,7 +134,7 @@
 											<tr>
 												<td class="tc"><input type="checkbox" id="temp"
 													value="${employee.id}" name="check"
-													onclick="checkItem(this)"></td>
+													></td>
 												<td>${employee.id}</td>
 												<td>${employee.employeeName}</td>
 												<td>${employee.employeeEmail}</td>
@@ -236,7 +236,7 @@
 					$("input#temp").prop("checked", false);
 				}
 			});
-		});
+		}); 
 	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -244,15 +244,17 @@
 				var msg = "您真的确定要删除全部吗？";
 				if (confirm(msg) == true) {
 					var allcheckbox = "";
-					$("input[name=check]").each(function() { //遍历table里的全部checkbox
+					$("input[name=check]:checked").each(function() { //遍历table里的全部checkbox
 						allcheckbox += $(this).val() + ","; //获取所有checkbox的值
+						console.log(allcheckbox);
 					});
-					 if(allcheckbox.length > 0) //如果获取到
+					  if(allcheckbox.length > 0) //如果获取到
                 allcheckbox = allcheckbox.substring(0, allcheckbox.length - 1); //把最后一个逗号去掉
-                window.location = "emp-deleteAll?checkTnum="+allcheckbox;
+                 window.location = "emp-deleteAll?checkTnum="+allcheckbox;
        				 }else{   
       			  return false;   
-				}
+				}  
+			
 			});
 		});
 	</script>
