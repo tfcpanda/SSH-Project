@@ -27,12 +27,33 @@ public class EmployeeAction extends ActionSupport implements SessionAware,Reques
 	private DepartmentService departmentService;
 	private Employee employee;
 	private String employeeName;
+	private String checkTnum;	 //批量删除的id值
+	/*
+	 * 批量删除的方法
+	 */
+	public String deleteAll(){
+        String [] checkedNums = checkTnum.split(",");
+        employeeService.batchDeleteAsk(checkedNums);
+        return "deleteAll";
+    }
+	
+	/*
+	 * 批量删除
+	 */
+    public String getCheckTnum() {
+        return checkTnum;
+    }
+
+    public void setCheckTnum(String checkTnum) {
+        this.checkTnum = checkTnum;
+    }
 	/*
 	 * 判断是否可用
 	 */
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
 	}
+	
 	public String validateEmployeeName() throws UnsupportedEncodingException {
 		employeeName= new String(employeeName.getBytes("iso-8859-1"),"UTF-8");
 		status = false;
@@ -164,7 +185,7 @@ public class EmployeeAction extends ActionSupport implements SessionAware,Reques
 	public String list() {
 		pageBean = new PageBean<Employee>();
 		pageBean.setPageNo(pageNo);
-		pageBean.setPageSize(2);
+		pageBean.setPageSize(5);
 		int recordCount = employeeService.getRecordCount();
 		pageBean.setRecordCount(recordCount);
 		List<Employee> datas = employeeService.getEmployeeByPage(
@@ -182,7 +203,7 @@ public class EmployeeAction extends ActionSupport implements SessionAware,Reques
 	public void GetBeanData() {
 		pageBean = new PageBean<Employee>();
 		pageBean.setPageNo(pageNo);
-		pageBean.setPageSize(2);
+		pageBean.setPageSize(5);
 		int recordCount = employeeService.getRecordCount();
 		pageBean.setRecordCount(recordCount);
 		List<Employee> datas = employeeService.getEmployeeByPage(

@@ -116,9 +116,8 @@
 									<!--头部 样式-->
 									<thead>
 										<tr>
-											<th class="tc" width="5%"><input onclick=""
-												id="" class="" name=""
-												type="checkbox"></th>
+											<th class="tc" width="5%"><input id="selectall"
+												class="" name="selectall" type="checkbox"></th>
 											<th>ID</th>
 											<th>姓名</th>
 											<th>EMAIL</th>
@@ -133,7 +132,7 @@
 										<c:forEach items="${pageBean.data}" var="employee"
 											varStatus="employeeStatus">
 											<tr>
-												<td class="tc"><input type="checkbox"
+												<td class="tc"><input type="checkbox" id="temp"
 													value="${employee.id}" name="check"
 													onclick="checkItem(this)"></td>
 												<td>${employee.id}</td>
@@ -171,63 +170,93 @@
 	</div>
 	<!-- script代码 -->
 	<script type="text/javascript">
-			$(document).ready(function() {
-				$(document).on("click", ".delete", function() {
-					var employeeName = $(this).next(":hidden").val();
-					var flag = confirm("确定要删除" + employeeName + "的信息吗?");
-					if(flag) {
-						var $tr = $(this).parent().parent();
-						//删除，使用 ajax 的方式
-						var url = this.href;
-						$.ajax({
-							url: url,
-							dataType: "json",
-							type: "post",
-							success: function(data) {
-								//若data的返回值为true，则提示删除成功，且把当前行删除
-								
-								if(data.status) {
-									var $this= $("#empTable tbody");
-									 $this.html("");
-									$.each(data.pageBean.data, function(index, obj) {
-										var tr = "<tr>";
-										tr = tr +  "<td class='tc'>"+"<input type='checkbox'>"+"</td>";
-										tr = tr + "<td>" + obj.id + "</td>";
-										tr = tr + "<td>" + obj.employeeName + "</td>";
-										tr = tr + "<td>" + obj.employeeEmail + "</td>";
-										tr = tr + "<td>" + obj.employeeBirthday.substring(0, obj.employeeBirthday.indexOf("T")) + "</td>";
-										tr = tr + "<td>" + obj.createTime.replace("T", " ") + "</td>";
-										tr = tr + "<td>" + obj.department.departmentName + "</td>";
-										tr = tr+"<td><a href='emp-delete?id="+ obj.id+"&pageNo="+data.pageBean.pageNo +"'class='delete'>删除</a><input type='hidden' value='"+obj.employeeName+"'/></td>"
-										tr = tr + "<td><a href='emp-input?id=" + obj.id + "'>编辑</a></td>";
-										tr = tr + "</tr>"
-										$("#empTable tbody").append(tr);
-										
-										/* console.log(obj); */
-									});
-									
-									$("#empTable tfoot").html("");
-									tr="<tr><td colspan='9' align='center'>";
-									tr=tr+"&nbsp;<a href='emp-list?pageNo="+data.pageBean.firstPage+"'>首页</a>&nbsp;";
-									tr=tr+"<a href='emp-list?pageNo="+data.pageBean.prePage+"'>上一页</a>&nbsp;";
-									tr=tr+"<a>当前第"+data.pageBean.pageNo+"页,&nbsp;共"+data.pageBean.lastPage+"页</a>&nbsp;";
-									tr=tr+"<a href='emp-list?pageNo="+data.pageBean.nextPage+"'>下一页</a>&nbsp;";
-									tr=tr+"<a href='emp-list?pageNo="+data.pageBean.lastPage+"'>末页</a>&nbsp;";
-									$("#empTable tfoot").append(tr);
-									alert("删除成功!"); 
-								} else {
-									//若data的返回值为false，提示删除失败
-									alert("删除失败!");
-								}
+		$(document).ready(function() {
+			$(document).on("click", ".delete", function() {
+				var employeeName = $(this).next(":hidden").val();
+				var flag = confirm("确定要删除" + employeeName + "的信息吗?");
+				if (flag) {
+					var $tr = $(this).parent().parent();
+					//删除，使用 ajax 的方式
+					var url = this.href;
+					$.ajax({
+						url : url,
+						dataType : "json",
+						type : "post",
+						success : function(data) {
+							//若data的返回值为true，则提示删除成功，且把当前行删除
+	
+							if (data.status) {
+								var $this = $("#empTable tbody");
+								$this.html("");
+								$.each(data.pageBean.data, function(index, obj) {
+									var tr = "<tr>";
+									tr = tr + "<td class='tc'>" + "<input type='checkbox'>" + "</td>";
+									tr = tr + "<td>" + obj.id + "</td>";
+									tr = tr + "<td>" + obj.employeeName + "</td>";
+									tr = tr + "<td>" + obj.employeeEmail + "</td>";
+									tr = tr + "<td>" + obj.employeeBirthday.substring(0, obj.employeeBirthday.indexOf("T")) + "</td>";
+									tr = tr + "<td>" + obj.createTime.replace("T", " ") + "</td>";
+									tr = tr + "<td>" + obj.department.departmentName + "</td>";
+									tr = tr + "<td><a href='emp-delete?id=" + obj.id + "&pageNo=" + data.pageBean.pageNo + "'class='delete'>删除</a><input type='hidden' value='" + obj.employeeName + "'/></td>"
+									tr = tr + "<td><a href='emp-input?id=" + obj.id + "'>编辑</a></td>";
+									tr = tr + "</tr>"
+									$("#empTable tbody").append(tr);
+	
+								/* console.log(obj); */
+								});
+	
+								$("#empTable tfoot").html("");
+								tr = "<tr><td colspan='9' align='center'>";
+								tr = tr + "&nbsp;<a href='emp-list?pageNo=" + data.pageBean.firstPage + "'>首页</a>&nbsp;";
+								tr = tr + "<a href='emp-list?pageNo=" + data.pageBean.prePage + "'>上一页</a>&nbsp;";
+								tr = tr + "<a>当前第" + data.pageBean.pageNo + "页,&nbsp;共" + data.pageBean.lastPage + "页</a>&nbsp;";
+								tr = tr + "<a href='emp-list?pageNo=" + data.pageBean.nextPage + "'>下一页</a>&nbsp;";
+								tr = tr + "<a href='emp-list?pageNo=" + data.pageBean.lastPage + "'>末页</a>&nbsp;";
+								$("#empTable tfoot").append(tr);
+								alert("删除成功!");
+							} else {
+								//若data的返回值为false，提示删除失败
+								alert("删除失败!");
 							}
-						});
-					}
-					//取消超链接的默认行为
-					return false;
-
-				});
+						}
+					});
+				}
+				//取消超链接的默认行为
+				return false;
+	
 			});
-		</script>
+		});
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			$("#selectall").click(function() {
+				if (this.checked == true) {
+					$("input#temp").prop("checked", true);
+				} else {
+					$("input#temp").prop("checked", false);
+				}
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#batchDel").click(function() {
+				var msg = "您真的确定要删除全部吗？";
+				if (confirm(msg) == true) {
+					var allcheckbox = "";
+					$("input[name=check]").each(function() { //遍历table里的全部checkbox
+						allcheckbox += $(this).val() + ","; //获取所有checkbox的值
+					});
+					 if(allcheckbox.length > 0) //如果获取到
+                allcheckbox = allcheckbox.substring(0, allcheckbox.length - 1); //把最后一个逗号去掉
+                window.location = "emp-deleteAll?checkTnum="+allcheckbox;
+       				 }else{   
+      			  return false;   
+				}
+			});
+		});
+	</script>
+	
 	
 </body>
 

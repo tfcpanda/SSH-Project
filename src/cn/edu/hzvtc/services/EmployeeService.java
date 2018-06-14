@@ -38,5 +38,16 @@ public class EmployeeService {
 	public Employee get(Integer id) {
 		return employeeDao.get(id);
 	}
-
+	public void batchDeleteAsk(String [] id){
+        String hql = "";
+           for(int i=0;i<id.length;i++) {
+               if(i==0) {
+                   hql = "id="+id[i];
+               } else {
+                   hql =hql + " or id="+id[i];
+               }
+           }   
+          hql= "delete from Employee where "+hql;
+       employeeDao.batchDelete(hql,id);
+   }
 }

@@ -79,9 +79,8 @@
                             <th width="120">部门：</th>
                             <td>
                                 <select id="department" name="employee.department.id">
-                                    <option value="0">请选择..</option>
+                                    <option value="0">请选择</option>
                                     <c:forEach items="${departments}" var="department" varStatus="departmentStatus">
-				
 		<option value="${department.id}" <c:if test="${department.id eq employee.department.id}">
 			selected
 			</c:if>>
@@ -122,7 +121,7 @@ type='date' dateStyle='default' />" id="employeeBirthday" class="common-text" na
                             <tr>
                                 <th></th>
                                 <td>
-                                    <input class="btn btn-primary btn6 mr10" value="提交" type="submit">
+                                    <input class="btn btn-primary btn6 mr10" value="提交" id = "sub"  type="submit">
                                 </td>
                             </tr>
                         </tbody>
@@ -196,6 +195,11 @@ type='date' dateStyle='default' />" id="employeeBirthday" class="common-text" na
 					alert("部门不能为空！");
 					return false;
 				}
+				var coun =$("#department").val();
+			if (coun == 0) {
+				alert("部门不能为空！");
+				return false;
+			}
 			});
 		});
 	</script>

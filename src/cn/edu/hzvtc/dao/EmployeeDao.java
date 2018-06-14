@@ -42,5 +42,10 @@ public class EmployeeDao extends BaseDao<Employee>{
 		return (Employee) getSession().createQuery(hql).setInteger(0, id)
 				.uniqueResult();
 	}
+	
+	public void batchDelete(String hql,String[] id) {
+		 Query query = getSession().createQuery(hql);
+	        query.executeUpdate();
+	    }
 
 }	

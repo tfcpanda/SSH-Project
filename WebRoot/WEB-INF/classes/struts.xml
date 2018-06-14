@@ -9,6 +9,7 @@
 			<result name="success" type="redirect">/emp-list</result>
 			<result name="ajax-success" type="json"></result>
 			<result name="input">/WEB-INF/views/emp-input.jsp</result>
+			<result name="deleteAll" type="redirect">/emp-list</result>
 		</action>
 	</package>
 
