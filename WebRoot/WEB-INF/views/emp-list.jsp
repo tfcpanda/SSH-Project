@@ -45,7 +45,7 @@
 				<ul class="sidebar-list">
 					<li><a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
 						<ul class="sub-menu">
-							<li><a href="#"><i class="icon-font">&#xe008;</i>作品管理</a></li>
+							<li><a href="emp-list"><i class="icon-font">&#xe008;</i>员工信息</a></li>
 							<li><a href="#"><i class="icon-font">&#xe005;</i>博文管理</a></li>
 							<li><a href="#"><i class="icon-font">&#xe006;</i>分类管理</a></li>
 							<li><a href="#"><i class="icon-font">&#xe004;</i>留言管理</a></li>
@@ -68,8 +68,8 @@
 
 			<div class="crumb-wrap">
 				<div class="crumb-list">
-					<i class="icon-font"></i> <a href="#">首页</a><span
-						class="crumb-step">&gt;</span><span class="crumb-name">作品管理</span>
+					<i class="icon-font"></i> <a href="index.jsp">首页</a><span
+						class="crumb-step">&gt;</span><span class="crumb-name">员工列表</span>
 				</div>
 			</div>
 			<div class="search-wrap">
@@ -80,8 +80,8 @@
 								<th width="120">选择分类:</th>
 								<td><select name="search-sort" id="">
 										<option value="">全部</option>
-										<option value="19">精品界面</option>
-										<option value="20">推荐界面</option>
+										<option value="19">技术部</option>
+										<option value="20">商务部</option>
 								</select></td>
 								<th width="70">关键字:</th>
 								<td><input class="common-text" placeholder="关键字"
@@ -97,7 +97,7 @@
 				<form name="myform" id="myform" method="post">
 					<div class="result-title">
 						<div class="result-list">
-							<a href=emp-input><i class="icon-font"></i>新增作品</a> <a
+							<a href=emp-input><i class="icon-font"></i>增加员工信息</a> <a
 								id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
 							<a id="updateOrd" href="javascript:void(0)"><i
 								class="icon-font"></i>更新排序</a>
@@ -155,7 +155,7 @@
 										<td colspan="9" align="center"><a
 											href="emp-list?pageNo=${pageBean.firstPage}">首页</a> <a
 											href="emp-list?pageNo=${pageBean.prePage}">上一页</a>
-											当前第${pageBean.pageNo},共${pageBean.lastPage}页 <a
+											当前第${pageBean.pageNo},&nbsp;共${pageBean.lastPage}&nbsp;页 <a
 											href="emp-list?pageNo=${pageBean.nextPage}">下一页</a> <a
 											href="emp-list?pageNo=${pageBean.lastPage}">末页</a></td>
 									</tfoot>
@@ -209,7 +209,7 @@
 								tr = "<tr><td colspan='9' align='center'>";
 								tr = tr + "&nbsp;<a href='emp-list?pageNo=" + data.pageBean.firstPage + "'>首页</a>&nbsp;";
 								tr = tr + "<a href='emp-list?pageNo=" + data.pageBean.prePage + "'>上一页</a>&nbsp;";
-								tr = tr + "<a>当前第" + data.pageBean.pageNo + "页,&nbsp;共" + data.pageBean.lastPage + "页</a>&nbsp;";
+								tr = tr + "当前第 "+data.pageBean.pageNo+"页,&nbsp;共"+data.pageBean.lastPage+"页&nbsp;";
 								tr = tr + "<a href='emp-list?pageNo=" + data.pageBean.nextPage + "'>下一页</a>&nbsp;";
 								tr = tr + "<a href='emp-list?pageNo=" + data.pageBean.lastPage + "'>末页</a>&nbsp;";
 								$("#empTable tfoot").append(tr);
